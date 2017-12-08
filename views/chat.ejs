@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>嘻哈聊天室</title>
+	<link type="text/css" href="/css/bootstrap.css" rel="stylesheet" >
+	<link type="text/css" href="/css/bootstrap-theme.css" rel="stylesheet">
+	<style type="text/css">
+		.caozuo{
+			position: fixed;
+			bottom: 0;
+			left: 10%;
+			right: 10%;
+			height: 100px;
+			width: 80%;
+		}
+		.caozuo input{
+			font-size:20px;
+		}
+		.caozuo input[type=text]{
+			width: 100%;
+			height: 50px;
+		}
+		.bs-docs-header, .bs-docs-masthead {
+			position: relative;
+			padding: 30px 0;
+			color: #cdbfe3;
+			text-align: center;
+			text-shadow: 0 1px 0 rgba(0,0,0,.1);
+			background-color: #6f5499;
+			background-image: -webkit-gradient(linear,left top,left bottom,from(#563d7c),to(#6f5499));
+			background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
+			background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
+			background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
+			background-repeat: repeat-x;
+		}
+
+		.nick_name{
+			color:#eea236;
+		}
+		.time{
+			float: right;
+		}
+		.list-group-item{
+			margin: 10px 0;
+		}
+		.float-r{
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+<div class="bs-docs-header" id="content" tabindex="-1">
+	<div class="container">
+		<h1>嘻哈聊天室 欢迎：<span class="nick_name" id="nickName"><%=nickName%></span></h1>
+		<p>简单粗狂...</p>
+	</div>
+</div>
+	<h2 style="text-align: center">聊天信息</h2>
+<hr>
+	<div style="margin: 10px 20%">
+			<ul id="list" class="list-group"></ul>
+	</div>
+	<div class="caozuo">
+		<input type="text" id="neirong" placeholder="输入消息 按回车键发送" />
+	</div>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<script type="text/javascript">
+		var socket = io();
+		$("#neirong").keydown(function(e){
+			if(e.keyCode == 13){
+				//把文本框的内容上传：客户端emit操作
+				socket.emit("liaotian",{
+					"neirong" : $("#neirong").val(),
+					"ren" : $("#nickName").html()
+				});
+				$(this).val("");
+			}
+		});
+		//客户端监听消息的到来（服务器端 emit操作）
+		socket.on("liaotian",function(msg){
+		    if($("#nickName").html() == msg.ren){
+                msg.ren = '我';
+                $("#list").prepend("<li class='list-group-item float-r list-group-item-info'></b>"+ msg.neirong +" : "+ msg.ren +"</li>");
+			}else{
+                $("#list").prepend("<li class='list-group-item list-group-item-success'>" + msg.ren + "：</b>"+ msg.neirong + "</li>");
+			}
+		});
+	</script>
+</body>
+</html>

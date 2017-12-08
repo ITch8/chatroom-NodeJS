@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>嘻哈聊天室</title>
+	<link type="text/css" href="/css/bootstrap.css" rel="stylesheet" >
+	<link type="text/css" href="/css/bootstrap-theme.css" rel="stylesheet">
+	<style type="text/css">
+		.main{
+			margin: 60px auto;
+			text-align: center;
+		}
+		.bs-docs-header, .bs-docs-masthead {
+			position: relative;
+			padding: 30px 0;
+			color: #cdbfe3;
+			text-align: center;
+			text-shadow: 0 1px 0 rgba(0,0,0,.1);
+			background-color: #6f5499;
+			background-image: -webkit-gradient(linear,left top,left bottom,from(#563d7c),to(#6f5499));
+			background-image: -webkit-linear-gradient(top,#563d7c 0,#6f5499 100%);
+			background-image: -o-linear-gradient(top,#563d7c 0,#6f5499 100%);
+			background-image: linear-gradient(to bottom,#563d7c 0,#6f5499 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
+			background-repeat: repeat-x;
+		}
+	</style>
+</head>
+<body>
+<div class="bs-docs-header" id="content" tabindex="-1">
+	<div class="container">
+		<h1>嘻哈聊天室</h1>
+		<p>简单粗狂...</p>
+	</div>
+</div>
+	<div class="main">
+		<form action="/check" method="post" class="form-inline">
+			<div class="form-group">
+				<label for="nickName">输入昵称</label>
+				<input type="text" name="nickName" class="form-control" id="nickName" required>
+			</div>
+			<button type="submit" class="btn btn-default">进入聊天室</button>
+		</form>
+	</div>
+</body>
+</html>
